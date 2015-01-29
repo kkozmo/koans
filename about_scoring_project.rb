@@ -29,9 +29,33 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
+# 3 1's = 1000 
+# 3 anything else = * 100 the number 
+# single one = 100 
+# single five = 50 
+
+# all ones X 100 except for 3 of a kind. 
+# all three of a kind X 100. 
+# all singe 5's * 10. 
+
 def score(dice)
-  # You need to write this method
+  # Score  starts at 0 
+  score = 0 
+
+  # Score for trip 1's 
+  score += 1000 if (dice.count(1) / 3) >= 1
+
+  #Score for singles 
+  score += (dice.count(1) % 3) * 100 
+  score += (dice.count(5) % 3)  * 50 
+
+  #Score for three of a kind 
+  [2,3,4,5,6].each do |num| 
+  score += 100 * num if (dice.count(num) / 3) >= 1
 end
+score 
+end
+
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
